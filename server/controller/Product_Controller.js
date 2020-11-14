@@ -1,20 +1,15 @@
 const {Product} = require('../models/index')
 
 class ProductController {
-    // static showData(req, res, next){
-    //     const id = req.params.id
-    //     try {
-    //         const data = await Product.findAll({
-    //             where: {
-    //                 id
-    //             }
-    //         })
-    //         res.status(200).json(data)
-    //     }
-    //     catch(err) {
-    //         next(err)
-    //     }
-    // }
+    static async showData(req, res, next){
+        try {
+            const data = await Product.findAll()
+            res.status(200).json(data)
+        }
+        catch(err) {
+            next(err)
+        }
+    }
 
     static async create(req,res, next){
         const UserId = req.loggedInUser.id

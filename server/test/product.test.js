@@ -31,7 +31,6 @@ beforeAll(done => {
                 admin: user.role
             }
             initial_access_token = generateToken(payload)
-            // console.log(initial_access_token, "<<< initial access token");
             done()
         })
         .catch(err => done(err))
@@ -48,7 +47,7 @@ describe('Create product / SUCCESS CASE', () => {
     test('test should send object with keys: id, name, image_url, price, stock', (done) => {
         request(app)
             .post('/product')
-            .set('token', initial_access_token)
+            .set('access_token', initial_access_token)
             .send(product_data)
             .end(function (err, res) {
                 if (err) throw err
@@ -69,7 +68,7 @@ describe('FAILED CASE: invalid sequelize validation error', () => {
     test('test should send object with keys: id, name, image_url, price, stock', (done) => {
         request(app)
             .post('/product')
-            .set('token', initial_access_token)
+            .set('access_token', initial_access_token)
             .send({
                 name: '',
                 image_url: 'link image',
@@ -91,7 +90,7 @@ describe('SUCCESS CASE: edit method', () => {
     test('test edit object with returning value: id, image_url, price, stock', (done) => {
         request(app)
             .put('/product/1')
-            .set('token', initial_access_token)
+            .set('access_token', initial_access_token)
             .send({
                 name: 'Product name edited',
                 image_url: 'link image edited',
@@ -99,7 +98,6 @@ describe('SUCCESS CASE: edit method', () => {
                 stock: 200
             })
             .end((err, res)=>{
-                // console.log(res.body);
                 if(err) throw err
                 else {
                     expect(res.status).toBe(200)
@@ -119,7 +117,7 @@ describe('SUCCESS CASE: delete method', ()=>{
     test('test delete object with returning valude key: id, image_url, price, stock', (done)=> {
         request(app)
         .delete('/product/2')
-        .set('token', initial_access_token)
+        .set('access_token', initial_access_token)
         .end((err, res)=>{
             if(err) throw err
             else {
@@ -129,6 +127,5 @@ describe('SUCCESS CASE: delete method', ()=>{
             }
         })
     })
-    //error case delete
 })
 

@@ -3,7 +3,7 @@ const { User } = require('../models/index')
 
 async function authentication(req, res, next) {
     const { token } = req.headers
-    // console.log(token, "token");
+    console.log(token, "token");
     try {
         if (!token) {
             throw {

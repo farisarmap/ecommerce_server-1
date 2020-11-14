@@ -37,7 +37,6 @@ describe('Login Test', () => {
 			.post('/login')
 			.send(user_data)
 			.end((err, res) => {
-				// console.log(res.body, '<<< res.boy');
 				if (err) {
 					throw err;
 				} else {

@@ -5,14 +5,14 @@ const { comparePassword } = require('../helper/bcrypt')
 
 class UserController {
     static async login(req,res, next){
-        // console.log('masuk login controller after login');
+        console.log('masuk login controller after login');
         try {
             const payload = {
                 email: req.body.email,
                 password: req.body.password,
                 role: req.body.role
             }
-            // console.log(req.body, "req.body");
+            console.log(req.body, "req.body");
             console.log(payload, 'payload user login');
             const user = await User.findOne({
                 where: {
@@ -22,10 +22,12 @@ class UserController {
 
             console.log(user, '<<< user');
             if(!user){
+                console.log('kondisi 1');
                 res.status(401).json({
                     msg: "Invalid email/password"
                 })
             } else if (!comparePassword(payload.password, user.password)){
+                console.log('kondisi 2');
                 res.status(401).json({
                     msg: "Invalid email/password"
                 })
@@ -36,6 +38,7 @@ class UserController {
                      email: user.email,
                      role: user.role
                  })
+                 console.log(access_token);
                  res.status(200).json({
                      access_token
                  })
